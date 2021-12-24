@@ -46,6 +46,11 @@ open class MainActivity : BaseActivity<MainViewModel>(), ItemAdapter.VideoSelect
             downloadFile(videoModel, videoIndex)
         } else {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoModel.url))
+            if (videoModel.type == "PDF")
+                intent.setDataAndType(Uri.parse(videoModel.url), "application/pdf")
+            else
+                intent.setDataAndType(Uri.parse(videoModel.url), "video/mp4")
+            intent.flags = Intent.FLAG_ACTIVITY_NO_HISTORY;
             startActivity(intent)
         }
     }
