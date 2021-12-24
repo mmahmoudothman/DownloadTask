@@ -1,0 +1,17 @@
+package com.osman.downloadtask
+
+import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
+import com.osman.downloadtask.data.remote.NagwaBackend
+import io.reactivex.plugins.RxJavaPlugins
+import timber.log.Timber
+
+class App : Application() {
+    override fun onCreate() {
+        super.onCreate()
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        NagwaBackend.createApiConnection()
+        Timber.plant(Timber.DebugTree())
+        RxJavaPlugins.setErrorHandler { }
+    }
+}
