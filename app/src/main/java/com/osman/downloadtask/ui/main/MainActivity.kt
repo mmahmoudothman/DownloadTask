@@ -8,9 +8,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.osman.downloadtask.R
 import com.osman.downloadtask.adapter.ItemAdapter
-import com.osman.downloadtask.data.VideoModel
+import com.osman.downloadtask.data.model.VideoModel
 import com.osman.downloadtask.databinding.ActivityMainBinding
+import com.osman.downloadtask.di.ApplicationComponent
+import com.osman.downloadtask.di.DaggerApplicationComponent
 import com.osman.downloadtask.ui.base.BaseActivity
+import com.osman.downloadtask.ui.base.MyViewModelFactory
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -23,14 +26,20 @@ open class MainActivity : BaseActivity<MainViewModel>(), ItemAdapter.VideoSelect
     private var adapter: ItemAdapter? = null
     private lateinit var disposable: Disposable
     var tryCount = 0
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val appComponent: ApplicationComponent = DaggerApplicationComponent.builder()
+            .application(application)
+            .build()
+
         binding.lifecycleOwner = this
-        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            MyViewModelFactory(appComponent.getRepoImplmentor())
+        )[MainViewModel::class.java]
         binding.viewModel = viewModel
-        adapter = ItemAdapter(viewModel!!.getBranchList(this) as ArrayList<VideoModel>, this)
+        adapter = ItemAdapter(viewModel!!.getBranchList() as ArrayList<VideoModel>, this)
         binding.rvFiles.adapter = adapter
     }
 

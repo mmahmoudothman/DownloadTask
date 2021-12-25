@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.osman.downloadtask.R
-import com.osman.downloadtask.data.VideoModel
+import com.osman.downloadtask.data.model.VideoModel
 import com.osman.downloadtask.databinding.ItemFilesBinding
 
 class ItemAdapter(

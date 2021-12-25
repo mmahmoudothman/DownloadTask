@@ -10,7 +10,7 @@
 
         <variable
             name="videoModel"
-            type="com.osman.downloadtask.data.VideoModel" />
+            type="com.osman.downloadtask.data.model.VideoModel" />
     </data>
 
     <androidx.cardview.widget.CardView

@@ -1,4 +1,4 @@
-package com.osman.downloadtask.data
+package com.osman.downloadtask.data.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
